@@ -14,12 +14,12 @@
 	//echo $sql;
 
 	$objDb = new db();
-	$link = $objDb->conecta_mysql();
+	$link = $objDb->conecta_postgres();
 
-	$resultado = mysqli_query($link, $sql);
+	$resultado = pg_query($link, $sql);
 
 	if($resultado){
-		$dados_usuarios = mysqli_fetch_array($resultado);
+		$dados_usuarios = pg_fetch_array($resultado);
 
 		if(isset($dados_usuarios['usuario'])){
 

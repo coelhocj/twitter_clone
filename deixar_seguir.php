@@ -16,10 +16,10 @@
 	}
 
 	$objDb = new db();
-	$link = $objDb->conecta_mysql();
+	$link = $objDb->conecta_postgres();
 
 	$sql = "DELETE FROM usuarios_seguidores WHERE id_usuario = $id_usuario AND seguindo_id_usuario = $seguir_id_usuario;";
 
-	mysqli_query($link, $sql);
+	pg_query($link, $sql);
 
 ?>

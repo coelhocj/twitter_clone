@@ -12,7 +12,7 @@
 	$nome_pessoa = $_POST['nome_pessoa'];
 
 	$objDb = new db();
-	$link = $objDb->conecta_mysql();
+	$link = $objDb->conecta_postgres();
 
 	$sql = "SELECT u.*, us.* ";
 	$sql.= "FROM usuarios AS u ";
@@ -20,10 +20,10 @@
 	$sql.= "ON (us.id_usuario = $id_usuario AND u.id = us.seguindo_id_usuario) ";
 	$sql.= "WHERE u.usuario like '%$nome_pessoa%' AND u.id <> $id_usuario; ";
 
-	$resultado = mysqli_query($link, $sql);
+	$resultado = pg_query($link, $sql);
 
 	if($resultado){
-		while($registro = mysqli_fetch_array($resultado, MYSQLI_ASSOC)){
+		while($registro = pg_fetch_array($resultado, PGSQL_ASSOC)){
 			
 			echo "<a href='#' class='list-group-item'>";
 				echo "<strong>".$registro['usuario']."</strong> <small> - ".$registro['email']." </small>";

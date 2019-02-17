@@ -16,10 +16,10 @@
 	}
 
 	$objDb = new db();
-	$link = $objDb->conecta_mysql();
+	$link = $objDb->conecta_postgres();
 
 	$sql = "INSERT INTO tweet(id_usuario, tweet) VALUES ($id_usuario, '$texto_tweet');";
 
-	mysqli_query($link, $sql);
+	pg_query($link, $sql);
 
 ?>
