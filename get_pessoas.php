@@ -14,7 +14,11 @@
 	$objDb = new db();
 	$link = $objDb->conecta_mysql();
 
-	$sql = "SELECT * FROM usuarios WHERE usuario like '%$nome_pessoa%' AND id <> $id_usuario;";
+	$sql = "SELECT u.*, us.* ";
+	$sql.= "FROM usuarios AS u ";
+	$sql.= "LEFT JOIN usuarios_seguidores AS us ";
+	$sql.= "ON (us.id_usuario = $id_usuario AND u.id = us.seguindo_id_usuario) ";
+	$sql.= "WHERE u.usuario like '%$nome_pessoa%' AND u.id <> $id_usuario; ";
 
 	$resultado = mysqli_query($link, $sql);
 
@@ -25,7 +29,22 @@
 				echo "<strong>".$registro['usuario']."</strong> <small> - ".$registro['email']." </small>";
 
 				echo "<p class='list-group-item-text pull-right'>";
-					echo "<button type='button' class='btn btn-default btn_seguir' data-id_usuario='".$registro['id']."'>Seguir</button><br>";
+
+					$esta_seguindo_usuario_sn = isset($registro['id_usuario_seguidor']) && !empty($registro['id_usuario_seguidor']) ? 'S' : 'N';
+
+					$btn_seguir_display = 'block';
+					$btn_deixar_seguir_display = 'block';
+
+					if($esta_seguindo_usuario_sn == 'N'){
+						$btn_deixar_seguir_display = 'none';
+					}else{
+						$btn_seguir_display = 'none';
+					}
+
+					echo "<button type='button' id='btn_seguir_".$registro['id']."' class='btn btn-default btn_seguir' data-id_usuario='".$registro['id']."' style='display:".$btn_seguir_display."'>Seguir</button>";
+
+					echo "<button type='button' id='btn_deixar_seguir_".$registro['id']."' class='btn btn-primary btn_deixar_seguir' style='display:".$btn_deixar_seguir_display."' data-id_usuario='".$registro['id']."'>Deixar de Seguir</button>";
+
 					echo "<div class='clearfix'></div>";
 				echo "</p>";
 
