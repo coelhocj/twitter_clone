@@ -18,14 +18,15 @@
 	 (t.id_usuario = u.id)	
 	 WHERE id_usuario = $id_usuario OR id_usuario IN (select seguindo_id_usuario from usuarios_seguidores where id_usuario = $id_usuario)  ORDER BY data_inclusao DESC;";
 
-	$resultado = pg_query($link, $sql);
+	 try{
 
-	echo $resultado;
+		$resultado = pg_query($link, $sql);
+	}catch(Exception $e){
+		echo $e->getMessage();
+	}
+
 
 	if($resultado){
-		$teste = pg_fetch_array($resultado, PGSQL_ASSOC);
-
-		var_dump($teste);
 
 		while($registro = pg_fetch_array($resultado, PGSQL_ASSOC)){
 			
