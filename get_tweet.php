@@ -21,9 +21,9 @@
 	$resultado = pg_query($link, $sql);
 
 	if($resultado){
-		//$teste = pg_fetch_array($resultado, PGSQL_ASSOC);
+		$teste = pg_fetch_array($resultado, PGSQL_ASSOC);
 
-		//var_dump($teste);
+		var_dump($teste);
 
 		while($registro = pg_fetch_array($resultado, PGSQL_ASSOC)){
 			
