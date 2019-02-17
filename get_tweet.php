@@ -20,6 +20,8 @@
 
 	$resultado = pg_query($link, $sql);
 
+	echo $resultado;
+
 	if($resultado){
 		$teste = pg_fetch_array($resultado, PGSQL_ASSOC);
 
