@@ -11,9 +11,21 @@ class db{
 	private $database = 'twitter_clone';
 
 	public function conecta_postgres(){
-		$con = pg_connect("host=ec2-174-129-224-157.compute-1.amazonaws.com port=5432 dbname=d88k920nsk3bh5 user=bxpunpsirwsfaj password=9ef4e3f8a0595cb35e7361b120acbe5e0d2c1e32b92f08e3f973e1c1e73bbad2");
 
-		if(pg_connection_status($con) == 0){
+		$string_conexao = "host=ec2-174-129-224-157.compute-1.amazonaws.com
+				port=5432
+				dbname=d88k920nsk3bh5
+				user=bxpunpsirwsfaj
+				password=9ef4e3f8a0595cb35e7361b120acbe5e0d2c1e32b92f08e3f973e1c1e73bbad2
+				";
+
+		try{
+			$con = pg_connect($string_conexao);
+		}catch(Exception $e){
+			echo 'Message: ' .$e->getMessage();
+		}
+
+		if($con <> false){
 			return $con;
 		}else{
 			echo "Erro ao conectar ao banco de dados postgres";
@@ -22,7 +34,7 @@ class db{
 		
 	}
 
-	public function conecta_mysql(){
+/*	public function conecta_mysql(){
 		//criar a conexão
 		$con = mysqli_connect($this->host, $this->usuario, $this->senha, $this->database);
 		//ajustar o charset de comunicação com o db
@@ -35,6 +47,7 @@ class db{
 
 		return $con;
 	}
+	*/
 }
 
 ?>

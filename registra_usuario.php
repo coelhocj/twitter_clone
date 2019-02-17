@@ -7,7 +7,7 @@ $email = $_POST['email'];
 $senha = md5($_POST['senha']);
 
 $objDb = new db();
-$link = $objDb->conecta_mysql();
+$link = $objDb->conecta_postgres();
 
 $usuario_existe = false;
 
@@ -17,8 +17,8 @@ $email_existe = false;
 
 $sql = "select * from usuarios where usuario = '$usuario'";
 
-if($resultado = mysqli_query($link, $sql)){
-	$dados_usuario = mysqli_fetch_array($resultado);
+if($resultado = pg_query($link, $sql)){
+	$dados_usuario = pg_fetch_array ($resultado);
 	
 	if(isset($dados_usuario['usuario'])){
 		$usuario_existe = true;
@@ -32,8 +32,8 @@ if($resultado = mysqli_query($link, $sql)){
 
 $sql = "select * from usuarios where email = '$email'";
 
-if($resultado = mysqli_query($link, $sql)){
-	$dados_usuario = mysqli_fetch_array($resultado);
+if($resultado = pg_query($link, $sql)){
+	$dados_usuario = pg_fetch_array($resultado);
 	
 	if(isset($dados_usuario['email'])){
 		$email_existe = true;
@@ -59,7 +59,7 @@ if($usuario_existe || $email_existe){
 
 $sql = "insert into usuarios(usuario, email, senha) values ('$usuario','$email','$senha')";
 
-if(mysqli_query($link, $sql)){
+if(pg_query ($link, $sql)){
 	echo 'Usuário registrado com sucesso';
 }else{
 	echo 'Erro ao registrar o usuário';
