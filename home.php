@@ -27,6 +27,8 @@
 	}else{
 		echo 'Erro na query';
 	}
+
+	echo pg_last_error($link); 
 	//Recuperar quantidade de seguidores
 
 	$sql = "SELECT count(*) AS qtde_seguidores FROM usuarios_seguidores WHERE seguindo_id_usuario = $id_usuario;";
