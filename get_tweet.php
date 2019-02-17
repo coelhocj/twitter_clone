@@ -21,8 +21,10 @@
 	$resultado = pg_query($link, $sql);
 
 	if($resultado){
+		$teste = pg_fetch_array($resultado, PGSQL_ASSOC);
 
-		var_dump($registro);
+		var_dump($teste);
+
 		while($registro = pg_fetch_array($resultado, PGSQL_ASSOC)){
 			
 			echo "<a href='#' class='list-group-item'>";
